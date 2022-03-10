@@ -1,0 +1,24 @@
+[Backup to crypt sshfs mount 1]
+sshfs_identity_file=/opt/bwackup/.ssh/remote_backup_1
+sshfs_url=your_backup_user@example.com:/backup/remote_backup/data
+sshfs_mountpoint=/mnt/remote_backup_1
+
+crypt_luks_file=/mnt/remote_backup_1/backup.luks
+crypt_partition=backup-partition_1
+crypt_key=/opt/bwackup/luks/backup_1.key
+crypt_mountpoint=/mnt/remote_backup_1_data/
+
+rsnapshot_conf=/etc/rsnapshot_bwackup_to_1.conf
+
+[Backup to crypt sshfs mount 2]
+sshfs_identity_file=/opt/bwackup/.ssh/remote_backup_2
+sshfs_url=your_backup_user@other-example.com:backup/remote_backup/data
+sshfs_url_port=12345
+sshfs_mountpoint=/mnt/remote_backup_2
+
+crypt_luks_file=/mnt/remote_backup_2/backup.luks
+crypt_partition=backup_2-partition
+crypt_key=/opt/bwackup/luks/backup_2.key
+crypt_mountpoint=/mnt/remote_backup_2_data/
+
+rsnapshot_conf=/etc/rsnapshot_bwackup_to_2.conf

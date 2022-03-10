@@ -1,0 +1,8 @@
+rsnapshot_conf=/etc/rsnapshot_bwackup_docker-compose.conf
+docker_compose_backup_dir=/path/to/docker-compose/backup/dir/ # The directory shoulb be the one which is backup by your `rsnapshot_conf` 
+
+[traefik]
+docker_compose_path=/path/to/traefik-docker-compose-directory
+
+[homeassistant]
+docker_compose_path=/path/to/homeassistant-docker-compose-directory
