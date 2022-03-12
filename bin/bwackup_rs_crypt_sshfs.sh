@@ -10,6 +10,7 @@ source "$DIR_NAME"/../common/init-file-parser.sh
 
 declare SCRIPT_NAME="$0"
 declare config="$DIR_NAME/../etc/bwackup_rs_crypt_sshfs.conf"
+declare -i loglevel=LOG_LEVEL_INFO
 
 do_backup() {
     local section=$1
@@ -55,6 +56,7 @@ show_help() {
     echo "  -t  | --test - Will mount/unmout but run rsnapshot in test-mode (won't touch anything) and no logging to syslog."
     echo "  -ts | --timestamps - Will log to console with timestamps."
     echo "  -c  | --config - Use the given config instead of the default one '$config'"
+    echo "  -ll | --loglevel - Set the log level of THIS script (not the ones of the used commands): 0 (debug), 1 (info), 2 (warning), 3 (error) or 4 (off)."
 }
 
 [[ $# -eq 0 ]] && syslog_and_exit_with_error "No given arguments.\n$(show_help)"
@@ -76,6 +78,10 @@ while :; do
     -ts | --timestamps)
         GLOBAL_LOG_WITH_TIMESTAMPS="true"
         ;;
+    -ll | --loglevel)
+        loglevel=$(($2))
+        shift
+        ;;
     -?*)
         syslog_and_exit_with_error "Unknown option: '$1'"
         ;;
@@ -92,6 +98,8 @@ done
 rsnapshot_interval="$1"
 
 exit_if_a_cmd_is_missing
+
+set_log_level $loglevel
 
 # Load config
 keys_without_section_warning=false
