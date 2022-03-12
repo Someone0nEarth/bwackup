@@ -9,6 +9,7 @@ source "$DIR_NAME"/../common/docker-compose.sh
 source "$DIR_NAME"/../common/init-file-parser.sh
 
 declare config="$DIR_NAME/../etc/bwackup_rs_docker-compose.conf"
+declare -i loglevel=LOG_LEVEL_INFO
 
 backup_docker_compose_services_data_for_section() {
     local section="$1"
@@ -32,6 +33,7 @@ show_help() {
     echo "  -t  | --test - Will stop, copy data and start docker-compose projects, but run rsnapshot in test-mode (won't touch anything) and no logging to syslog."
     echo "  -ts | --timestamps - Will log to console with timestamps."
     echo "  -c  | --config - Use the given config instead of the default one '$config'"
+    echo "  -ll | --loglevel - Set the log level of THIS script (not the ones of the used commands): 0 (debug), 1 (info), 2 (warning), 3 (error) or 4 (off)."
 }
 
 [[ $# -eq 0 ]] && syslog_and_exit_with_error "No given arguments.\n$(show_help)"
@@ -53,6 +55,10 @@ while :; do
     -ts | --timestamps)
         GLOBAL_LOG_WITH_TIMESTAMPS="true"
         ;;
+    -ll | --loglevel)
+        loglevel=$(($2))
+        shift
+        ;;
     -?*)
         syslog_and_exit_with_error "Unknown option: '$1'"
         ;;
@@ -69,6 +75,8 @@ rsnapshot_interval="$1"
 [ "$2" != "" ] && syslog_and_exit_with_error "Unexpected argument '$2'"
 
 exit_if_a_cmd_is_missing
+
+set_log_level $loglevel
 
 # Load config
 keys_without_section_warning=false
