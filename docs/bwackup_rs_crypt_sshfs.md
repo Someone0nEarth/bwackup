@@ -16,6 +16,7 @@ Usage: ./bwackup_rs_crypt_sshfs.sh [options] rsnapshot_interval
   -t  | --test - Will mount/unmout but run rsnapshot in test-mode (won't touch anything) and no logging to syslog.
   -ts | --timestamps - Will log to console with timestamps.
   -c  | --config - Use the given config instead of the default one './../etc/bwackup_rs_crypt_sshfs.conf'
+  -ll | --loglevel - Set the log level of THIS script (not the ones of the used commands): 0 (debug), 1 (info), 2 (warning), 3 (error) or 4 (off).
 ```
 
 ## /etc/cron.d/rsnapshot
