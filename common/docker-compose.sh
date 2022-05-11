@@ -6,6 +6,26 @@ source "$(dirname "$0")/../common/global_flags.sh"
 # Commands used by this script
 add_cmds_for_failing_fast_check "docker" "docker-compose"
 
+# docker-compose using stderr for every output (see https://github.com/docker/compose/issues/7346 ).
+# Workaround for "supporting" log level separation to achieve the possiblity to have docker-compose output 
+# ONLY when errors occuring.
+execute_docker-compose_with_logging() {
+    local docker_compose_file=$1
+    local docker_compose_cmd=$2
+
+    local exit_code
+    local output
+
+    output=$(docker-compose --no-ansi -f "$docker_compose_file" "$docker_compose_cmd" 2>&1)
+    exit_code=$?
+
+    if [[ $exit_code -gt 0 ]]; then
+        log_error "$output"
+    else
+        log_info "$output"
+    fi
+}
+
 backup_docker_compose_services_data() {
     # Inspired by: https://gist.github.com/pirate/265e19a8a768a48cf12834ec87fb0eed
 
@@ -54,7 +74,7 @@ backup_docker_compose_services_data() {
     log_debug "Saving docker-compose.yml config"
     cp "$project_dir/docker-compose.yml" "$project_backup_dir/docker-compose.yml"
 
-    docker-compose --no-ansi -f "$project_dir/docker-compose.yml" stop
+    execute_docker-compose_with_logging "$project_dir/docker-compose.yml" stop
 
     for service_name in $(docker-compose -f $project_dir/docker-compose.yml config --services); do
         container_id=$(docker-compose -f $project_dir/docker-compose.yml ps -q "$service_name")
@@ -88,7 +108,7 @@ backup_docker_compose_services_data() {
 
     log_debug "Finished Backing up '$project_name' to '$project_backup_dir'"
 
-    docker-compose --no-ansi -f "$project_dir/docker-compose.yml" start
+    execute_docker-compose_with_logging "$project_dir/docker-compose.yml" start
 
     #Restore bash builtin option
     set "+$-"
