@@ -53,7 +53,7 @@ while :; do
         GLOBAL_SYSLOG="false"
         ;;
     -ts | --timestamps)
-        GLOBAL_LOG_WITH_TIMESTAMPS="true"
+        GLOBAL_LOG_CONSOLE_TIMESTAMPS="true"
         ;;
     -ll | --loglevel)
         loglevel=$(($2))

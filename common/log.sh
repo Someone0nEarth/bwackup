@@ -61,7 +61,7 @@ log() {
 log_to_console() {
     local log_text="$1"
     
-    if [[ $GLOBAL_LOG_WITH_TIMESTAMPS == "true" ]]; then
+    if [[ $GLOBAL_LOG_CONSOLE_TIMESTAMPS == "true" ]]; then
         log_text="$(echo_formatted_date) $log_text"
     fi
     
@@ -73,7 +73,7 @@ log_to_file() {
     
     log_text="$(echo_formatted_date) $log_text"
     
-    echo -e "$log_text" >> $GLOBAL_LOGFILE
+    echo -e "$log_text" >> $GLOBAL_LOG_LOGFILE
 }
 
 log_debug() {

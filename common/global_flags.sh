@@ -5,9 +5,9 @@ if [ -z "$GLOBALS_ALREADY_SOURCED" ]; then
     
     GLOBAL_RSNAPSHOT_TEST_RUN="false"
     GLOBAL_SYSLOG="true"
-    GLOBAL_LOG_WITH_TIMESTAMPS="false"
+    GLOBAL_LOG_CONSOLE_TIMESTAMPS="false"
     GLOBAL_LOG_TO_FILE="false"
-    GLOBAL_LOGFILE="/var/log/bwackup.log"
+    GLOBAL_LOG_LOGFILE="/var/log/bwackup.log"
     
     declare -a DEPENDED_CMDS_FOR_FAILING_FAST_CHECK=()
     
