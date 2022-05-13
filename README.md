@@ -42,6 +42,10 @@ bwackup
  \_ etc    - The configuration files for the bwackup scripts
 ```
 
+## Global Configurations
+
+There some configurations which can't set via command line (yet). For example to log to a file. Have a look at 'common/globals_flags.sh'    
+
 ## Feedback
 
 Have questions, suggestions or improvements? Just contact me or doing a pull request!

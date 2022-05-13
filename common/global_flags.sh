@@ -2,13 +2,15 @@
 
 if [ -z "$GLOBALS_ALREADY_SOURCED" ]; then
     GLOBALS_ALREADY_SOURCED="true"
-
+    
     GLOBAL_RSNAPSHOT_TEST_RUN="false"
     GLOBAL_SYSLOG="true"
     GLOBAL_LOG_WITH_TIMESTAMPS="false"
-
+    GLOBAL_LOG_TO_FILE="false"
+    GLOBAL_LOGFILE="/var/log/bwackup.log"
+    
     declare -a DEPENDED_CMDS_FOR_FAILING_FAST_CHECK=()
-
+    
     readonly REGEX_DIR_PATH_WITHOUT_TRAILING_SLASH="^(\/[a-zA-Z_0-9 -]+)+[a-zA-Z_0-9-]$" # /a, /a/b, /a/b/c and so on..
     readonly REGEX_DIR_PATH_WITH_TRAILING_SLASH="^(\/[a-zA-Z_0-9 -]+)+\/$"               # /a/, /a/b/, /a/b/c/ and so on..
     readonly REGEX_DIR_PATH_WITHOUT_ROOT="^(\/[a-zA-Z_0-9 -]+)+[a-zA-Z_0-9 \/-]$"        # /a, /a/, /a/b/, /a/b/c and so on.. but not /, //, /// and so on..
