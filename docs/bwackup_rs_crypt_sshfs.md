@@ -67,6 +67,21 @@ crypt_mountpoint=/mnt/remote_backup_2_data/
 rsnapshot_conf=/etc/rsnapshot_bwackup_to_2.conf
 ```
 
+## Mounting / Unmounting helper tool
+
+For mounting / unmounting the configured sshfs / crypt luk mounts, you can use:
+
+bwackup/bin/bwackup_mount_crypt_sshfs.sh :
+
+```
+ Usage: ./bwackup_mount_crypt_sshfs.sh [options] mount|unmount
+ Options:
+  -h  | --help      - Show help (this)
+  -t  | --test      - No logging to syslog.
+  -c  | --config    - Use the given config instead of the default one './../etc/bwackup_rs_crypt_sshfs.conf'
+  -ll | --loglevel  - Set the log level of THIS script (not the ones of the used commands): 0 (debug), 1 (info), 2 (warning), 3 (error) or 4 (off).
+```
+
 ## Notes, hints etc.
 
 Thanks to the people behind https://github.com/DevelopersToolbox/ini-file-parser for the BASH INI-Parser!
